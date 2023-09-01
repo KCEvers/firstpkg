@@ -1,4 +1,3 @@
-
 #' Chaos in the atmosphere
 #'
 #' @param t
@@ -9,15 +8,14 @@
 #' @export
 #'
 #' @examples
-Lorenz <- function(t, state, parameters) {
-  with(as.list(c(state, parameters)), {
+Lorenz_model <- function(t, state, parms) {
+  with(as.list(c(state, parms)), {
     dX <-  a * X + Y * Z
     dY <-  b * (Y - Z)
     dZ <- -X * Y + c * Y - Z
     list(c(dX, dY, dZ))
   })
 }
-
 
 #' Generalized Lotka-Volterra Model
 #'
@@ -29,14 +27,14 @@ Lorenz <- function(t, state, parameters) {
 #' @export
 #'
 #' @examples
-GLV <- function(t, state, parameters) {
-  with(as.list(c(state, parameters)), {
+GLV_model <- function(t, state, parms) {
+  with(as.list(c(parms)), {
     # dX <-  a * X + Y * Z
     # dY <-  b * (Y - Z)
     # dZ <- -X * Y + c * Y - Z
     C = C0 * s
     diag(C) = diag(C0)
-    dX <- r * c(X1,X2,X3,X4) * (1 - C %*% c(X1,X2,X3,X4)) + mu
+    dX <- r * state * (1 - C %*% state) + mu
     # print(dX)
     list(dX)
   })
